@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Инфекции и иммунитет — учебный сайт</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  background: #e5ffe5;
+}
+header {
+  background: #69c66a;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+header button {
+  background: #ffffff;
+  border: none;
+  padding: 10px 22px;
+  cursor: pointer;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: 0.2s;
+}
+header button.active {
+  background: #3da43e;
+  color: #ffffff;
+}
+header button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.main-bg {
+  min-height: calc(100vh - 60px);
+  background-size: cover;
+  background-position: center;
+  padding: 40px 16px 60px;
+}
+section {
+  display: none;
+}
+section.active {
+  display: block;
+}
+.card {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.93);
+  border-radius: 18px;
+  padding: 26px 26px 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+.card h2 {
+  margin-top: 0;
+}
+.timer {
+  font-size: 22px;
+  font-weight: 700;
+  color: #e02b2b;
+  margin: 12px 0 18px;
+}
+.message {
+  margin-top: 15px;
+  font-weight: 600;
+  font-size: 17px;
+}
+.message.ok {
+  color: #1c8c2e;
+}
+.message.bad {
+  color: #c02020;
+}
+label { display: block; }
+.question {
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed #ddd;
+}
+.question p {
+  margin: 0 0 6px;
+}
+button.primary {
+  background: #3da43e;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+button.primary:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+select {
+  padding: 5px 6px;
+  border-radius: 6px;
+  border: 1px solid #bbb;
+  width: 100%;
+  max-width: 520px;
+}
+.match-row {
+  margin-bottom: 10px;
+}
+.match-row b {
+  display: inline-block;
+  min-width: 170px;
+}
+.small-note {
+  font-size: 13px;
+  color: #555;
+}
+</style>
+</head>
+<body>
+<header>
+  <button id="btn-z1" class="active" onclick="openTab('z1')">Задание 1</button>
+  <button id="btn-theory" onclick="openTab('theory')">Теория</button>
+  <button id="btn-test" onclick="openTab('test')">Тест</button>
+  <button id="btn-hw" onclick="openTab('hw')">Домашнее задание</button>
+</header>
+
+<!-- ЗАДАНИЕ 1 -->
+<section id="z1" class="active">
+  <div class="main-bg" style="background-image:url('tasks_image.jpg');">
+    <div class="card">
+      <h2>Задание 1. Иммунные клетки и понятия</h2>
+      <p><b>Правило.</b> Если ученик во время выполнения задания откроет другую вкладку, свернёт окно браузера, выйдет со страницы или обновит её, то ссылка на задание автоматически закроется, таймер остановится, а задание будет заблокировано. В этом случае ответы не сохраняются и не принимаются.</p>
+
+      <div id="task1-select-block">
+        <h3>Шаг 1. Выбор варианта</h3>
+        <label><input type="radio" name="variant1" value="1"> Вариант 1</label>
+        <label><input type="radio" name="variant1" value="2"> Вариант 2</label>
+        <br>
+        <button id="task1-continue" class="primary" disabled>Продолжить</button>
+      </div>
+
+      <div id="task1-work" style="display:none;">
+        <div class="timer" id="task1-timer">3:00</div>
+        <p><b>Сопоставьте термины с определениями.</b></p>
+        <form id="task1-form"></form>
+        <p class="small-note">За каждое верно установленное соответствие — <b>0,5 балла</b>. Максимум — 3 балла.</p>
+        <button id="task1-check" class="primary" disabled>Проверить</button>
+        <div id="task1-msg" class="message"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ТЕОРИЯ -->
+<section id="theory">
+  <div class="main-bg" style="background-image:url('theory_image.jpg');">
+    <div class="card">
+      <h2>Теория. Возбудители инфекций и примеры заболеваний</h2>
+      <p>Инфекционные заболевания вызываются паразитическими организмами: вирусами, бактериями, простейшими и патогенными грибами. Они могут проникать в организм человека через пищеварительную или дыхательную систему, а также через повреждённую кожу (например, при укусах насекомых или ранениях).</p>
+      <p>Неважно, какой именно организм стал возбудителем. Тяжесть болезни зависит не от того, кто проник в организм, а от того, насколько опасен конкретный вид инфекции и как реагирует иммунная система человека.</p>
+      <p>Ниже рассмотрены примеры распространённых инфекционных заболеваний, их возбудители, симптомы, пути заражения и меры профилактики.</p>
+
+      <hr>
+      <h3>1. Амёбная дизентерия</h3>
+      <ul>
+        <li><b>Возбудитель:</b> дизентерийная амёба (простейшее).</li>
+        <li><b>Орган поражения:</b> толстый кишечник.</li>
+        <li><b>Симптомы:</b> сильный понос (часто с кровью), тошнота, рвота, слабость, высокая температура.</li>
+        <li><b>Пути заражения:</b> грязная вода, немытые руки, немытые овощи и фрукты.</li>
+        <li><b>Профилактика:</b> мытьё рук, тщательное мытьё продуктов, употребление кипячёной или очищенной воды.</li>
+      </ul>
+
+      <h3>2. Холера</h3>
+      <ul>
+        <li><b>Возбудитель:</b> холерный вибрион (бактерия в форме запятой).</li>
+        <li><b>Орган поражения:</b> тонкий кишечник.</li>
+        <li><b>Симптомы:</b> сильный понос, рвота, обезвоживание организма.</li>
+        <li><b>Пути заражения:</b> загрязнённая вода и пища (как при дизентерии).</li>
+        <li><b>Профилактика:</b> дезинфекция рук и предметов, использование хлорных и кислотных растворов в неблагополучных районах.</li>
+      </ul>
+
+      <h3>3. Дифтерия</h3>
+      <ul>
+        <li><b>Возбудитель:</b> дифтерийная палочка (бактерия).</li>
+        <li><b>Органы поражения:</b> глотка, нос, дыхательные пути, кожа, глаза.</li>
+        <li><b>Пути заражения:</b> воздушно-капельный путь; возможна передача через общие предметы.</li>
+        <li><b>Профилактика:</b> вакцинация, соблюдение гигиены, санитарный контроль при обнаружении больного.</li>
+      </ul>
+
+      <h3>4. Лейшманиоз</h3>
+      <ul>
+        <li><b>Возбудитель:</b> лейшмания (жгутиковое простейшее).</li>
+        <li><b>Симптомы:</b> большие язвы на коже.</li>
+        <li><b>Пути заражения:</b> укусы москитов и песчаных мошек.</li>
+        <li><b>Природные носители:</b> пустынные грызуны (например, большая песчанка).</li>
+        <li><b>Профилактика:</b> борьба с москитами, защита кожи от укусов.</li>
+      </ul>
+
+      <h3>5. Герпес</h3>
+      <ul>
+        <li><b>Возбудитель:</b> вирус герпеса.</li>
+        <li><b>Симптомы:</b> мелкие пузырьки на коже и слизистых, зуд, жжение, боль.</li>
+        <li><b>Пути заражения:</b> воздушно-капельный путь, прямой контакт.</li>
+        <li><b>Особенности:</b> носителями простого герпеса являются около 90% людей, проявляется при ослабленном иммунитете.</li>
+        <li><b>Профилактика:</b> гигиена, избегание контакта с больными, обработка поражённых участков, укрепление иммунитета.</li>
+      </ul>
+
+      <hr>
+      <h3>Инфекции растений</h3>
+      <p>Растения также страдают от болезней, вызываемых вирусами, бактериями и грибами.</p>
+      <h4>Фитофтороз</h4>
+      <ul>
+        <li><b>Возбудитель:</b> гриб-паразит.</li>
+        <li><b>Проявления:</b> темнеют плоды, листья и стебли, появляется водянистая гниль.</li>
+        <li><b>Опасность:</b> быстро распространяется и может уничтожить весь урожай.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ТЕСТ -->
+<section id="test">
+  <div class="main-bg" style="background-image:url('test_image.jpg');">
+    <div class="card">
+      <h2>Тест по теме «Инфекционные заболевания»</h2>
+      <p><b>Внимание!</b> Если вы перейдёте на другую вкладку или выйдете со страницы, задание будет прервано, и ответы не примутся.</p>
+
+      <div id="test-select-block">
+        <h3>Шаг 1. Выберите вариант теста</h3>
+        <label><input type="radio" name="testvar" value="1"> Вариант 1</label>
+        <label><input type="radio" name="testvar" value="2"> Вариант 2</label>
+        <br>
+        <button id="test-continue" class="primary" disabled>Продолжить</button>
+      </div>
+
+      <div id="test-work" style="display:none;">
+        <div class="timer" id="test-timer">5:00</div>
+        <form id="test-form"></form>
+        <button id="test-check" class="primary" disabled>Проверить</button>
+        <div id="test-msg" class="message"></div>
+        <button id="test-restart" class="primary" style="display:none;" onclick="restartTest(event)">Начать заново</button>
+        <p class="small-note">Максимальный балл за тест — <b>3</b>. Все 10 вопросов вносят одинаковый вклад в результат.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ДОМАШНЕЕ ЗАДАНИЕ -->
+<section id="hw">
+  <div class="main-bg" style="background-image:url('homework_image.jpg');">
+    <div class="card">
+      <h2>Домашнее задание. Ситуационная задача</h2>
+      <p><b>Ситуация.</b><br>
+      В классе Анны один из учеников заболел дифтерией. У Анны и её друзей есть возможность заразиться через воздушно-капельный путь, так как они часто общаются и пользуются общими предметами.</p>
+
+      <h3>Вопросы</h3>
+      <ol>
+        <li>Какие меры профилактики должна принять Анна, чтобы не заразиться?</li>
+        <li>Почему важно соблюдать личную гигиену и избегать контактов с больным?</li>
+        <li>Какие органы человека чаще всего поражает дифтерия?</li>
+        <li>Какую роль играют прививки в предотвращении болезни?</li>
+      </ol>
+
+      <h3>Критерий оценивания</h3>
+      <table border="1" cellpadding="6" cellspacing="0">
+        <tr><th>Критерий</th><th>Балл</th></tr>
+        <tr><td>Полнота ответа: ученик описал все ключевые меры профилактики (личная гигиена, избегание контактов, прививки и др.).</td><td align="center">1</td></tr>
+        <tr><td>Аргументированность ответа: ученик объяснил, почему эти меры важны и как защищают организм.</td><td align="center">1</td></tr>
+      </table>
+      <p class="small-note">Максимум за задачу — <b>2 балла</b>.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+// --- Общая логика вкладок + защита от ухода ---
+let task1Active = false;
+let task1Blocked = false;
+let testActive = false;
+let testBlocked = false;
+
+function openTab(id) {
+  // если во время работы задания/теста ученик уходит на другую вкладку сайта — прерываем
+  if (id !== 'z1' && task1Active && !task1Blocked) {
+    cheatAbortTask1();
+  }
+  if (id !== 'test' && testActive && !testBlocked) {
+    cheatAbortTest();
+  }
+
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('header button').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('btn-' + id);
+  if (btn) btn.classList.add('active');
+}
+
+// реагируем на уход с вкладки браузера / сворачивание окна
+function handleVisibilityChange() {
+  if (document.hidden) {
+    if (task1Active && !task1Blocked) cheatAbortTask1();
+    if (testActive && !testBlocked) cheatAbortTest();
+  }
+}
+
+document.addEventListener('visibilitychange', handleVisibilityChange);
+window.addEventListener('blur', handleVisibilityChange);
+
+// --- ЗАДАНИЕ 1 (сопоставление) ---
+const task1Variants = {
+  1: {
+    terms: [
+      'Антитела',
+      'Моноциты',
+      'Гуморальный иммунитет',
+      'Т-лимфоциты',
+      'Фагоцитоз',
+      'Антиген'
+    ],
+    defs: [
+      'Процесс захвата и переваривания клеткой твердых частиц с помощью ложноножек',
+      'Иммунитет, основанный на действии антител, растворённых в жидкостях организма',
+      'Поглощают вредные частицы вне кровяного русла (в плевральной, суставной жидкости)',
+      'Чужеродное вещество (как правило, белок), вызывающее иммунный ответ',
+      'Особые белки, вырабатываемые лимфоцитами в ответ на попадание чужеродных веществ',
+      'Созревают в тимусе, обеспечивают клеточный иммунитет'
+    ],
+    correct: {
+      'Антитела': 'Особые белки, вырабатываемые лимфоцитами в ответ на попадание чужеродных веществ',
+      'Моноциты': 'Поглощают вредные частицы вне кровяного русла (в плевральной, суставной жидкости)',
+      'Гуморальный иммунитет': 'Иммунитет, основанный на действии антител, растворённых в жидкостях организма',
+      'Т-лимфоциты': 'Созревают в тимусе, обеспечивают клеточный иммунитет',
+      'Фагоцитоз': 'Процесс захвата и переваривания клеткой твердых частиц с помощью ложноножек',
+      'Антиген': 'Чужеродное вещество (как правило, белок), вызывающее иммунный ответ'
+    }
+  },
+  2: {
+    terms: [
+      'Лимфоциты',
+      'Эозинофилы',
+      'Базофилы',
+      'И. И. Мечников',
+      'Клеточный иммунитет',
+      'Нейтрофилы'
+    ],
+    defs: [
+      'Участвуют в свертывании крови и изменении проницаемости сосудов',
+      'Учёный, доказавший существование клеточного иммунитета через исследование фагоцитоза',
+      'Вырабатывают антитела, обеспечивают гуморальный и клеточный иммунитет',
+      'Обезвреживают чужеродные белки и разрушенные ткани',
+      'Иммунная реакция организма, основанная на активности фагоцитов',
+      'Осуществляют активный фагоцитоз в межклеточном пространстве, коже и других органах'
+    ],
+    correct: {
+      'Лимфоциты': 'Вырабатывают антитела, обеспечивают гуморальный и клеточный иммунитет',
+      'Эозинофилы': 'Обезвреживают чужеродные белки и разрушенные ткани',
+      'Базофилы': 'Участвуют в свертывании крови и изменении проницаемости сосудов',
+      'И. И. Мечников': 'Учёный, доказавший существование клеточного иммунитета через исследование фагоцитоза',
+      'Клеточный иммунитет': 'Иммунная реакция организма, основанная на активности фагоцитов',
+      'Нейтрофилы': 'Осуществляют активный фагоцитоз в межклеточном пространстве, коже и других органах'
+    }
+  }
+};
+
+const variantRadios1 = document.querySelectorAll("input[name='variant1']");
+const task1ContinueBtn = document.getElementById('task1-continue');
+const task1Form = document.getElementById('task1-form');
+const task1Work = document.getElementById('task1-work');
+const task1SelectBlock = document.getElementById('task1-select-block');
+const task1TimerEl = document.getElementById('task1-timer');
+const task1CheckBtn = document.getElementById('task1-check');
+const task1Msg = document.getElementById('task1-msg');
+
+let task1Timer = null;
+let task1TimeLeft = 0;
+let task1CurrentVariant = null;
+
+variantRadios1.forEach(r => {
+  r.addEventListener('change', () => {
+    task1ContinueBtn.disabled = false;
+  });
+});
+
+task1ContinueBtn.addEventListener('click', () => {
+  const checked = document.querySelector("input[name='variant1']:checked");
+  if (!checked) return;
+  task1CurrentVariant = checked.value;
+  task1SelectBlock.style.display = 'none';
+  task1Work.style.display = 'block';
+  buildTask1Form(task1CurrentVariant);
+  startTask1Timer();
+});
+
+function shuffle(arr) {
+  return arr
+    .map(value => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
+}
+
+function buildTask1Form(variant) {
+  const data = task1Variants[variant];
+  const defsShuffled = shuffle([...data.defs]);
+  task1Form.innerHTML = '';
+  data.terms.forEach((term, index) => {
+    const row = document.createElement('div');
+    row.className = 'match-row';
+    const id = 't1_' + index;
+    const label = document.createElement('label');
+    label.htmlFor = id;
+    label.innerHTML = '<b>' + term + ':</b>';
+    const select = document.createElement('select');
+    select.id = id;
+    select.dataset.term = term;
+    const emptyOpt = document.createElement('option');
+    emptyOpt.value = '';
+    emptyOpt.textContent = '— выберите определение —';
+    select.appendChild(emptyOpt);
+    defsShuffled.forEach(d => {
+      const opt = document.createElement('option');
+      opt.value = d;
+      opt.textContent = d;
+      select.appendChild(opt);
+    });
+    row.appendChild(label);
+    row.appendChild(document.createElement('br'));
+    row.appendChild(select);
+    task1Form.appendChild(row);
+  });
+
+  task1Msg.textContent = '';
+  task1CheckBtn.disabled = true;
+
+  task1Form.querySelectorAll('select').forEach(sel => {
+    sel.addEventListener('change', () => {
+      const allChosen = [...task1Form.querySelectorAll('select')].every(s => s.value !== '');
+      task1CheckBtn.disabled = !allChosen;
+    });
+  });
+}
+
+function startTask1Timer() {
+  task1TimeLeft = 180; // 3 минуты
+  task1TimerEl.textContent = formatTime(task1TimeLeft);
+  task1Active = true;
+  task1Blocked = false;
+  if (task1Timer) clearInterval(task1Timer);
+  task1Timer = setInterval(() => {
+    task1TimeLeft--;
+    task1TimerEl.textContent = formatTime(task1TimeLeft);
+    if (task1TimeLeft <= 0) {
+      clearInterval(task1Timer);
+      task1Active = false;
+      task1Blocked = true;
+      blockTask1('Время вышло. Задание завершено.');
+    }
+  }, 1000);
+}
+
+function blockTask1(message) {
+  task1Form.querySelectorAll('select').forEach(s => (s.disabled = true));
+  task1CheckBtn.disabled = true;
+  task1Msg.textContent = message;
+  task1Msg.classList.remove('ok');
+  task1Msg.classList.add('bad');
+}
+
+function cheatAbortTask1() {
+  if (!task1Active || task1Blocked) return;
+  if (task1Timer) clearInterval(task1Timer);
+  task1Active = false;
+  task1Blocked = true;
+  blockTask1('Задание прервано. Ответ не принимается.');
+}
+
+function formatTime(sec) {
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return m + ':' + String(s).padStart(2, '0');
+}
+
+// проверка задания 1
+task1CheckBtn.addEventListener('click', () => {
+  if (task1Blocked) return;
+  if (task1Timer) {
+    clearInterval(task1Timer);
+    task1Active = false;
+  }
+  const data = task1Variants[task1CurrentVariant];
+  let correctPairs = 0;
+  task1Form.querySelectorAll('select').forEach(sel => {
+    const term = sel.dataset.term;
+    const chosen = sel.value;
+    if (data.correct[term] === chosen) correctPairs++;
+    sel.disabled = true;
+  });
+  const score = correctPairs * 0.5;
+  task1CheckBtn.disabled = true;
+  task1Msg.classList.remove('bad');
+  task1Msg.classList.add('ok');
+  task1Msg.textContent = `Вы верно сопоставили ${correctPairs} из 6 терминов. Балл: ${score.toFixed(1)} из 3.`;
+});
+
+// --- ТЕСТ ---
+const testData = {
+  1: [
+    { q: '1. Какие организмы могут быть возбудителями инфекций?',
+      options: {
+        A: 'Только вирусы',
+        B: 'Только бактерии',
+        C: 'Вирусы, бактерии, простейшие и грибы',
+        D: 'Насекомые'
+      }, correct: 'C' },
+    { q: '2. Как чаще всего возбудители попадают в организм?',
+      options: {
+        A: 'Через уши',
+        B: 'Через органы пищеварения и дыхания',
+        C: 'Через кровь только',
+        D: 'Через волосы'
+      }, correct: 'B' },
+    { q: '3. Возбудитель амёбной дизентерии — это:',
+      options: {
+        A: 'Бактерия',
+        B: 'Гриб',
+        C: 'Простейшее',
+        D: 'Вирус'
+      }, correct: 'C' },
+    { q: '4. Как передаётся дизентерия?',
+      options: {
+        A: 'Через укусы насекомых',
+        B: 'Через грязную воду и немытые продукты',
+        C: 'Воздушно-капельным путём',
+        D: 'Через кровь'
+      }, correct: 'B' },
+    { q: '5. Где обитает холерный вибрион?',
+      options: {
+        A: 'В почве',
+        B: 'На коже человека',
+        C: 'В водной среде',
+        D: 'В воздухе'
+      }, correct: 'C' },
+    { q: '6. Какой формы холерный вибрион?',
+      options: {
+        A: 'Круглый',
+        B: 'Спиральный',
+        C: 'В форме запятой',
+        D: 'В форме квадрата'
+      }, correct: 'C' },
+    { q: '7. Как чаще всего передаётся дифтерия?',
+      options: {
+        A: 'Через воду',
+        B: 'Воздушно-капельным путём',
+        C: 'Через пищу',
+        D: 'Через укусы животных'
+      }, correct: 'B' },
+    { q: '8. Что является основным методом профилактики дифтерии?',
+      options: {
+        A: 'Приём витаминов',
+        B: 'Проветривание',
+        C: 'Прививки',
+        D: 'Употребление чеснока'
+      }, correct: 'C' },
+    { q: '9. Что вызывает лейшманиоз?',
+      options: {
+        A: 'Вирус',
+        B: 'Палочка',
+        C: 'Жгутиковое простейшее',
+        D: 'Гриб'
+      }, correct: 'C' },
+    { q: '10. Кто переносит лейшманиоз?',
+      options: {
+        A: 'Комары',
+        B: 'Мухи',
+        C: 'Москиты и песчаные мошки',
+        D: 'Пчёлы'
+      }, correct: 'C' }
+  ],
+  2: [
+    { q: '1. Как возбудитель амёбной дизентерии попадает в организм?',
+      options: {
+        A: 'Через воздух',
+        B: 'Через цисту, проглоченную человеком',
+        C: 'Через кожу',
+        D: 'При контакте с животными'
+      }, correct: 'B' },
+    { q: '2. Какой орган поражается при амёбной дизентерии?',
+      options: {
+        A: 'Желудок',
+        B: 'Тонкий кишечник',
+        C: 'Толстый кишечник',
+        D: 'Почки'
+      }, correct: 'C' },
+    { q: '3. Какой метод обеззараживания эффективен против холеры?',
+      options: {
+        A: 'Сахарный раствор',
+        B: 'Хлорная известь',
+        C: 'Газированная вода',
+        D: 'Масло'
+      }, correct: 'B' },
+    { q: '4. Что является симптомом дизентерии?',
+      options: {
+        A: 'Сыпь',
+        B: 'Кашель',
+        C: 'Непрекращающийся понос',
+        D: 'Бессонница'
+      }, correct: 'C' },
+    { q: '5. Где чаще всего развивается дифтерия в организме?',
+      options: {
+        A: 'В печени',
+        B: 'В глотке',
+        C: 'В сердце',
+        D: 'В почках'
+      }, correct: 'B' },
+    { q: '6. Кто может быть носителем дифтерии, даже не болея?',
+      options: {
+        A: 'Только больные',
+        B: 'Только животные',
+        C: 'Здоровые люди',
+        D: 'Только дети'
+      }, correct: 'C' },
+    { q: '7. Где в природе обитают лейшмании?',
+      options: {
+        A: 'В рыбе',
+        B: 'В водорослях',
+        C: 'В пустынных грызунах',
+        D: 'В почве'
+      }, correct: 'C' },
+    { q: '8. Как проявляется лейшманиоз у человека?',
+      options: {
+        A: 'Кашель',
+        B: 'Язвы на коже',
+        C: 'Насморк',
+        D: 'Отеки ног'
+      }, correct: 'B' },
+    { q: '9. Где наиболее часто появляется простой герпес?',
+      options: {
+        A: 'На руках',
+        B: 'На губах',
+        C: 'На ногах',
+        D: 'На спине'
+      }, correct: 'B' },
+    { q: '10. Что может спровоцировать проявление герпеса?',
+      options: {
+        A: 'Только сладкая еда',
+        B: 'Переохлаждение или перегрев',
+        C: 'Спортивные занятия',
+        D: 'Весёлая музыка'
+      }, correct: 'B' }
+  ]
+};
+
+const testVarRadios = document.querySelectorAll("input[name='testvar']");
+const testContinueBtn = document.getElementById('test-continue');
+const testSelectBlock = document.getElementById('test-select-block');
+const testWork = document.getElementById('test-work');
+const testForm = document.getElementById('test-form');
+const testCheckBtn = document.getElementById('test-check');
+const testMsg = document.getElementById('test-msg');
+const testTimerEl = document.getElementById('test-timer');
+const testRestartBtn = document.getElementById('test-restart');
+
+let testCurrentVariant = null;
+let testTimer = null;
+let testTimeLeft = 0;
+
+testVarRadios.forEach(r => {
+  r.addEventListener('change', () => {
+    testContinueBtn.disabled = false;
+  });
+});
+
+testContinueBtn.addEventListener('click', () => {
+  const checked = document.querySelector("input[name='testvar']:checked");
+  if (!checked) return;
+  testCurrentVariant = checked.value;
+  testSelectBlock.style.display = 'none';
+  testWork.style.display = 'block';
+  buildTestForm(testCurrentVariant);
+  startTestTimer();
+});
+
+function buildTestForm(variant) {
+  const data = testData[variant];
+  testForm.innerHTML = '';
+  data.forEach((item, index) => {
+    const qDiv = document.createElement('div');
+    qDiv.className = 'question';
+    const qId = 'q' + (index + 1);
+    const p = document.createElement('p');
+    p.textContent = item.q;
+    qDiv.appendChild(p);
+    for (const letter of ['A', 'B', 'C', 'D']) {
+      const optLabel = document.createElement('label');
+      const radio = document.createElement('input');
+      radio.type = 'radio';
+      radio.name = qId;
+      radio.value = letter;
+      optLabel.appendChild(radio);
+      optLabel.appendChild(document.createTextNode(' ' + letter + ') ' + item.options[letter]));
+      qDiv.appendChild(optLabel);
+    }
+    testForm.appendChild(qDiv);
+  });
+
+  testMsg.textContent = '';
+  testRestartBtn.style.display = 'none';
+  testCheckBtn.disabled = true;
+
+  testForm.querySelectorAll('input[type="radio"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const totalQuestions = testData[variant].length;
+      let answered = 0;
+      for (let i = 1; i <= totalQuestions; i++) {
+        if (testForm.querySelector('input[name="q' + i + '"]:checked')) answered++;
+      }
+      testCheckBtn.disabled = answered !== totalQuestions;
+    });
+  });
+}
+
+function startTestTimer() {
+  testTimeLeft = 300; // 5 минут
+  testTimerEl.textContent = formatTime(testTimeLeft);
+  testActive = true;
+  testBlocked = false;
+  if (testTimer) clearInterval(testTimer);
+  testTimer = setInterval(() => {
+    testTimeLeft--;
+    testTimerEl.textContent = formatTime(testTimeLeft);
+    if (testTimeLeft <= 0) {
+      clearInterval(testTimer);
+      testActive = false;
+      testBlocked = true;
+      blockTest('Время вышло. Задание завершено.');
+    }
+  }, 1000);
+}
+
+function blockTest(message) {
+  testForm.querySelectorAll('input[type="radio"]').forEach(r => (r.disabled = true));
+  testCheckBtn.disabled = true;
+  testMsg.textContent = message;
+  testMsg.classList.remove('ok');
+  testMsg.classList.add('bad');
+  testRestartBtn.style.display = 'inline-block';
+}
+
+function cheatAbortTest() {
+  if (!testActive || testBlocked) return;
+  if (testTimer) clearInterval(testTimer);
+  testActive = false;
+  testBlocked = true;
+  blockTest('Задание прервано. Ответ не принимается.');
+}
+
+function calcTestScore(correct) {
+  if (correct === 10) return 3;
+  if (correct >= 8) return 2.5;
+  if (correct >= 6) return 2;
+  if (correct >= 4) return 1;
+  return 0;
+}
+
+testCheckBtn.addEventListener('click', () => {
+  if (testBlocked) return;
+  if (testTimer) {
+    clearInterval(testTimer);
+    testActive = false;
+  }
+  const data = testData[testCurrentVariant];
+  let correct = 0;
+  data.forEach((item, index) => {
+    const name = 'q' + (index + 1);
+    const chosen = (testForm.querySelector('input[name="' + name + '"]:checked') || {}).value;
+    if (chosen === item.correct) correct++;
+  });
+
+  testForm.querySelectorAll('input[type="radio"]').forEach(r => (r.disabled = true));
+  testCheckBtn.disabled = true;
+
+  const score = calcTestScore(correct);
+  testMsg.classList.remove('bad');
+  testMsg.classList.add('ok');
+  testMsg.textContent = `Вы ответили правильно на ${correct} из 10 вопросов. Балл: ${score} из 3.`;
+  testRestartBtn.style.display = 'inline-block';
+});
+
+function restartTest(e) {
+  e.preventDefault();
+  // сброс теста до начала
+  if (testTimer) clearInterval(testTimer);
+  testActive = false;
+  testBlocked = false;
+  testSelectBlock.style.display = 'block';
+  testWork.style.display = 'none';
+  testForm.innerHTML = '';
+  testMsg.textContent = '';
+  testRestartBtn.style.display = 'none';
+  testContinueBtn.disabled = true;
+  testVarRadios.forEach(r => (r.checked = false));
+}
+</script>
+</body>
+</html>
